@@ -1,6 +1,7 @@
 
-his.combined <- read.csv("//cdc.gov/private/L330/ykf1/New folder/Data Quality/Paper/his.combined.csv",
-                         stringsAsFactors = F)
+his.combined <- read.csv("//cdc.gov/private/L330/ykf1/New folder/Data Quality/Paper/his.combined.csv")
+
+# Next time use stringsAsFactors = F in read.csv
 
 # Loading packages
 
@@ -13,7 +14,6 @@ source("Multiplot.R")
 
 his.combined[his.combined == "."] <- NA
 
-
 # Converting variables from factors to numeric
 columns <- names(his.combined)
 count_cols <- grep( pattern = "count_", x = columns)
@@ -25,12 +25,6 @@ convert_factor <- function(x){
 his.combined[, count_cols] <- lapply( his.combined[, count_cols], convert_factor)
 
 lapply( his.combined[, count_cols], levels)
-
-
-
-theme_get()
-ls(package:ggthemes)
-
 
 # EWARN
 
@@ -285,69 +279,3 @@ multiplot(plot5, plot6, plot7, plot8, cols=2)
 
 dev.off()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-theme(axis.title.x = element_text(size=15),
-      axis.title.y = element_text(size=15),
-      plot.title   = element_text(size=25),
-      text         = element_text(size=15)
-) +
-  
-#axis.text.x, axis.text.y
-+
-   
-theme(plot.title = element_text(lineheight=5, face="bold"))
-theme(element_text(lineheight=5, face="bold")) 
-
-
-
-
-
-
-
-proc sgplot data=his.combined;
-where clinic="JHAS";
-series x=week y=count_M_over60_other;
-run;
-
-proc sgplot data=his.combined;
-where clinic="RAF";
-series x=week y=count_M_under5_ili;
-run;
-
-proc sgplot data=his.combined;
-where clinic="RAF";
-series x=week y=count_M_18_59_dental_cond;
-run;
